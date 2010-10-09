@@ -1,0 +1,5 @@
+crx
+======
+crx is a crx(chromium-extension) file maker
+currently it only supports lispworks.
+
