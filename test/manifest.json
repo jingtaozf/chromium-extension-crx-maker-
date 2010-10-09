@@ -1,0 +1,17 @@
+/* -*- encoding:utf-8 Mode: javascript; -*- */
+{
+    "name": "lisp loader",
+    "version": "1.0",
+    "description": "lisp loader",
+    "content_scripts": [
+        {
+            "matches": ["http://upload.tbsandbox.com/auction/publish/edit.htm*", 
+                        "http://upload.tbsandbox.com/auction/publish/publish.htm*",
+                        "http://upload.taobao.com/auction/publish/edit.htm*",
+                        "http://upload.taobao.com/auction/publish/publish.htm*"
+                       ],
+            "js": ["bho.js"]
+        }
+    ], 
+    "permissions": ["tabs", "http://*/*", "https://*/*"]
+}
