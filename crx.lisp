@@ -4,13 +4,15 @@
 ;; Description: crx(chrominum extention) packer tool
 ;; Author: Xu Jingtao
 ;; Created: 2010.09.23 15:47:53(+0800)
-;; Last-Updated: 2010.09.23 23:15:34(+0800)
-;;     Update #: 28
+;; Last-Updated: 2011.03.20 16:55:02(+0800)
+;;     Update #: 31
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (in-package :crx)
 (export '(
           make-crx
+          *crx-openssl*
           ) :crx)
+(defvar *crx-openssl* "d:\\cygwin\\bin\\openssl.exe")
 
 (defun write-dword (in stream)
   "write an unsigned integer(4 bytes) to stream"
@@ -29,11 +31,11 @@
       (loop for file in files
          do (with-open-file (s (strcat root-dir "\\" file) :element-type '(unsigned-byte 8))
               (zip:write-zipentry zip file s))))
-    (sys:call-system-showing-output (strcat "openssl rsa -pubout -inform PEM -outform DER -in "
+    (sys:call-system-showing-output (strcat *crx-openssl* " rsa -pubout -inform PEM -outform DER -in "
                                             pem-file " > \"" temp-zip.derkey "\"")
                                     :current-directory root-dir
                                     :wait t)
-    (sys:call-system-showing-output (strcat "openssl sha1 -sign " pem-file " \"" temp-zip "\""
+    (sys:call-system-showing-output (strcat *crx-openssl* " sha1 -sign " pem-file " \"" temp-zip "\""
                                             " > \"" temp-zip.sign "\"")
                                     :current-directory root-dir
                                     :wait t)
